@@ -70,6 +70,28 @@ const resolvers = {
       db.games.push(game);
       return game;
     },
+    addAuthor(_, args) {
+      let author = {
+        ...args.author,
+        id: Math.floor(Math.random() * 10000).toString(),
+      };
+      db.authors.push(author);
+
+      return author;
+    },
+
+    updateGame(_, args) {
+      let x;
+      db.games.map((g) => {
+        if (g.id === args.id) {
+          x = { ...g, ...args.edit };
+          return x;
+        } else {
+          return g;
+        }
+      });
+      return x;
+    },
   },
 };
 
